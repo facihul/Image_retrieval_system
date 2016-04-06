@@ -37,7 +37,7 @@ end
 %%%% Retrieved results %%%%%%%%%%%%
 
 
- vec= a{1,21};
+ vec= a{1,56};
  for i= 1:20
  subplot(4,5,i), imshow(Seq{vec(i)})
  end
