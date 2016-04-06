@@ -1,0 +1,31 @@
+DATABASE sgn5506
+QUERY_TYPE  visual
+CLASS_NO 10
+
+DBGOUT 1
+# Put any nonzero number to enable DbgOut signals..
+
+QUERY	0 - 19
+# this basically means to query ALL items in the database..
+% this is a 10-class database with Corel images. 
+# 0 - Natives
+# 1 - Beach
+# 2 - Architecture
+# 3 - Bus
+# 4 - Dino
+# 5 - Elephant
+# 6 - Flower
+# 7 - Horses
+# 8 - Mountain
+# 9 - Food
+
+CLASS 0	0 - 19
+CLASS 1	20 - 39
+class 2	40 - 59
+CLASS 3	60 - 79
+CLASS 4	80 - 99
+class 5	100 - 119
+CLASS 6	120 - 139
+CLASS 7	140 - 159
+class 8	160 - 179
+CLASS 9	180 - 199

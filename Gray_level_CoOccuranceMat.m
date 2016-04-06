@@ -1,0 +1,1 @@
+function histout = Gray_level_CoOccuranceMat(im,dx,dy)

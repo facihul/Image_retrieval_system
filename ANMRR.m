@@ -1,0 +1,1 @@
+function v = ANMRR(retrieval_results,gt)
