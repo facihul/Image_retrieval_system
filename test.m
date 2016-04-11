@@ -1,37 +1,32 @@
 clear all 
 clc
-% imgPath = './texture_dbs/Images/';
-% imgType = '*.tif'; % change based on image type
-% 
-imgPath = './realIm_dbs/Images/';
-imgType = '*.jpg'; % change based on image type
+%%%%%%%%%%%%%%%  Texture Image Path %%%%%%%%%%%%%%%
+imgPath = './texture_dbs/Images/';
+imgType = '*.tif'; % change based on image type
+
+%%%%%%%%%%%%%%%  Texture Image Path %%%%%%%%%%%%%%%% 
+
+% imgPath = './realIm_dbs/Images/';
+% imgType = '*.jpg'; % change based on image type
 
 images  = dir([imgPath imgType]);
-%%%   Bins %% 
+
+%%%%%%%%%%  Colour feature Bins %%%%%%%%%%%%%%%%%% 
 rgbBins=[4,4,4];
 labBins=[8,4,4];
-%retrieved_Img = {20};
-tp = 0;
-fp=0;
-%%%%%%%%%% class of color image %%%%%%
-j=1;
-for i=1:20:200
-    classC(j,:)=[i:i+19];
-    j=j+1;
-end 
-%%%%%%%%%%%%%%%%% class of texture Image %%%%
 
-j=1;
-for i=1:10:200
-    classT(j,:)=[i:i+9];
-    j=j+1;
-end 
+retrieved_Img = {20};
+tp = 0; % True Positive 
+fp = 0; % false Positive
+
 
 %%%%%%%%%%%%%%%%%%%  
 for idx = 1:length(images)
     Seq{idx} = imread([imgPath images(idx).name]);
-    RGB{idx} = RGB_color_histogram(Seq{idx},rgbBins); % Color features
-    lab{idx} = Lab_color_histogram(Seq{idx},labBins); % Color features 
+    GLCMS{idx} = Gray_level_CoOccuranceMat(Seq{idx},4,4);
+
+    %RGB{idx} = RGB_color_histogram(Seq{idx},rgbBins); % Color features
+    %lab{idx} = Lab_color_histogram(Seq{idx},labBins); % Color features 
     %lbp{idx} = LBP_histogram(Seq{idx}); % texture features (not done yet)
     
 end
@@ -39,41 +34,54 @@ end
 %%%% Retrieved results  color Images   %%%%%%%%%%%%
 
 for i=1:length(images)
-     QI = RGB{i};
+    QI = GLCMS{i};
+     %QI = RGB{i};
     % QI = lab{i};
    for j = 1:length(images) 
-        
+       temp = GLCMS{j};
+    
        %temp = lab{j}; %% lab feature extract
-       temp = RGB{j}; %% RGB feature extract 
+       %temp = RGB{j}; %% RGB feature extract 
        v(j)= Eucl_dist(QI,temp);
    
    end 
    [vs,I]= sort(v); %% sort the distance
-   retrieved_Img = I(1:20); %% Take first 20 images;
-     
-       % retriev_result =Image_class( retrieved_Img,classC);
-        %F1(i) = AF1(retriev_result,20);
-         retrieval_results = Class_label_for_ANMRR(retrieved_Img);  
-          NMRR(i) = ANMRR(retrieval_results);
-      
- 
+   retrieved_Img = I(1:20); %% Take first 20 images;  
+   
+
+ %%%%%%%%%%%% Texture Image Retrieved result %%%%%%%%%%
+       retriev_resutl_texture = Image_class_for_texture(retrieved_Img);
+       F1_T(i) = AF1(retriev_resutl_texture,10);
+       retriev_resutl_texture = Class_label_for_ANMRR_T(retrieved_Img);
+       NMRR_T(i) = ANMRR(retriev_resutl_texture);
+        
+  %%%%%%%%%%%% Real Image Retrieved result %%%%%%%%%%     
+%         retriev_result =Image_class( retrieved_Img); % colour Image retrieval
+%         F1(i) = AF1(retriev_result,20);
+%         retrieval_results = Class_label_for_ANMRR(retrieved_Img); % colour Image retrieval 
+%         NMRR(i) = ANMRR(retrieval_results);      
+%  
        
 end
 
-%AF1_score = mean(F1);
-ANMRR_score = mean(NMRR);
-%%%% Retrieved results  color Images %%%%%%%%%%%%
+%%%% Avarage Retrieved results  Texture Images %%%%%%%%%%%%%
+
+AF1_T_score = mean(F1_T)
+ANMRR_T_score = mean(NMRR_T)
+
+%%%% Avarage  Retrieved results  Real Images %%%%%%%%%%%%% 
+
+% AF1_score = mean(F1)
+% ANMRR_score = mean(NMRR)
 
 
-%  vec= a{1,56};
+%%%%%%%%%%%%% Plot for single Image retrieval %%%%%
+%  vec= retrieved_Img;
 %  for i= 1:20
 %  subplot(4,5,i), imshow(Seq{vec(i)})
 %  end
-% 
-  
- 
 
-
+%%%%%%%%%%%%%%%%% plot ends %%%%%%%%
 
 
 
