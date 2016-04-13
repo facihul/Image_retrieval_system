@@ -1,7 +1,8 @@
-function result = Class_label_for_ANMRR_T(Im)
+function NMRR = Class_label_for_ANMRR_T(Im)
     
-   tp = 0; k=1; fp = 0;
-   
+   tp = 0; fp = 0; k=1;
+   rank_I = [];
+       
        if (Im(1)>0 && Im(1)<11) class_lb = 1;        
     elseif (Im(1)>10 && Im(1)<21) class_lb = 2;
     elseif (Im(1)>20 && Im(1)<31) class_lb = 3;
@@ -25,7 +26,7 @@ function result = Class_label_for_ANMRR_T(Im)
        end  
        
        
-     for i=1:20 
+     for i=2:20 
         if (Im(i)>0 && Im(i)<11) class_lbl = 1;        
     elseif (Im(i)>10 && Im(i)<21) class_lbl = 2;
     elseif (Im(i)>20 && Im(i)<31) class_lbl = 3;
@@ -49,15 +50,34 @@ function result = Class_label_for_ANMRR_T(Im)
         end    
         
          if class_lbl==class_lb      
-          tp = tp+1; rank(k) = i; k=k+1; 
+           tp = tp+1; 
+           rank_I(k) = i;  
+           k=k+1;
+         
          else fp=fp+1;
          end
          
      end    
-     
-    
-     
-       result = [tp,rank]; 
+          
+   NqT = 9; % minimum number of retrieval for texture Image
+   WT= 2*NqT; 
+
+  Mis_Val_T = NqT-length(rank_I); 
+  Missing_val = (WT+1)*Mis_Val_T;
+ if tp  == 0, NMRR = 1;  % worst retrieval
+ elseif tp == NqT, NMRR = 0 ; % best retrieval 
+ else 
+   
+   AVR = (sum(rank_I)+Missing_val)/NqT;
+   NMRR =(2*AVR - NqT - 1)/ (2*WT - NqT + 1);
+ end
+ 
+
+ end   
+       
+       
+       
+       
         
         
         
