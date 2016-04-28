@@ -3,11 +3,11 @@ clc
 
 %%%%%%%%%%%%%  For task 2 uncomment this part %%%%%%%%%
 
-imgPathR = './real_50/';%change based on dir name [real_50, real_40...  ]
-imgTypeR = '*.jpg'; 
-
-imgPathT = './texture_50/';%change based on dir name [real_50, real_40...  ]
-imgTypeT = '*.jpg';
+% imgPathR = './real_50/';%change based on dir name [real_50, real_40...  ]
+% imgTypeR = '*.jpg'; 
+% 
+% imgPathT = './texture_50/';%change based on dir name [real_50, real_40...  ]
+% imgTypeT = '*.jpg';
 
 
 %%%%%%%%%%%%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -15,13 +15,13 @@ imgTypeT = '*.jpg';
 %%%%%%%%%%%%%  For task 1 uncomment this part %%%%%%%%%
 % 
 % % %%%%%%%%%%%%%%  Texture Image Path %%%%%%%%%%%%%%%
-% imgPathT = './texture_dbs/Images/';
-% imgTypeT = '*.tif'; % change based on image type
-% 
-% %%%%%%%%%%%%%%  real Image Path %%%%%%%%%%%%%%%% 
-% 
-% imgPathR = './realIm_dbs/Images/';
-% imgTypeR = '*.jpg'; % change based on image type
+imgPathT = './texture_dbs/Images/';
+imgTypeT = '*.tif'; % change based on image type
+
+%%%%%%%%%%%%%%  real Image Path %%%%%%%%%%%%%%%% 
+
+imgPathR = './realIm_dbs/Images/';
+imgTypeR = '*.jpg'; % change based on image type
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%
